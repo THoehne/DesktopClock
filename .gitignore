@@ -1,0 +1,9 @@
+# Binary output
+./out/ 
+
+# node modules
+./node_modules/
+
+# Other fonts
+.date-time.ttf
+.weekday.ttf
