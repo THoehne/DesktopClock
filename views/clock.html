@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+
+    <style>
+        :root {
+            --text-day-color: white;
+            --text-day-neon-glow-color: none;
+            --text-time-color: white;
+            --text-time-neon-glow-color: none;
+            --border-color: white;
+        }
+
+        @font-face {
+            font-family: "weekday"; 
+            src: url(weekday.ttf); /* File for font used for the weekday. */
+        }
+
+        @font-face {
+            font-family: "date-time";
+            src: url(date-time.ttf);  /* File for font used for the date and time. */
+        }
+
+        * {
+            user-select: none;
+            -webkit-text-select: none;
+            -webkit-user-select: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .preload {
+            transition: none !important;
+        }
+
+        body {
+            scrollbar-width: none;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        #div {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: column;
+
+            
+            height: 140px;
+            width: 500px;
+            overflow: hidden;
+            
+            background-color: none;
+            
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            -webkit-app-region: no-drag;
+        }
+        
+        #div.to_drag {
+            -webkit-app-region: drag;
+        }
+
+        #day {
+            color: var(--text-day-color);
+
+            font-weight: bolder;
+            
+            font-family: "weekday";
+
+            font-size: 2em;
+            letter-spacing: 20px;
+            margin-top: 5px;
+        }
+
+        #time {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-time-color);
+
+            font-family: "date-time";
+            font-size: 1.3em;
+            letter-spacing: 10px;
+        }
+        
+
+        #date {
+            color: var(--text-time-color);
+
+            font-family: "date-time";
+            font-size: 1em;
+            letter-spacing: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="div">
+        <span id="day">Wednesday</span>
+        <span id="date">24. January 2024</span>
+        <span id="time">
+            -
+            <span id="hour"></span>
+            <span id="colon">:</span>
+            <span id="minute"></span>
+            -
+        </span>
+    </div>
+</body>
+<script>
+    // set names to numbers
+    const days = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
+    const month = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
+
+    const hour_dom = document.getElementById("hour");
+    const minute_dom = document.getElementById("minute");
+    const color_dom = document.getElementById("colon");
+    const day = document.getElementById("day");
+    const _date = document.getElementById("date");
+
+    const now = new Date();
+    const hour = (now.getHours() > 9) ? now.getHours() : `0${now.getHours()}`;
+    const minute = (now.getMinutes() > 9) ? now.getMinutes() : `0${now.getMinutes()}`;
+    
+    day.innerText = days[now.getDay()];
+    hour_dom.innerText = hour;
+    minute_dom.innerText = minute;
+    _date.innerText = `${now.getDate()}. ${month[now.getMonth()]} ${now.getFullYear()}`;
+
+    setInterval(() => {
+        // update time
+
+        const now = new Date();
+        const hour = (now.getHours() > 9) ? now.getHours() : `0${now.getHours()}`;
+        const minute = (now.getMinutes() > 9) ? now.getMinutes() : `0${now.getMinutes()}`;
+
+        hour_dom.innerText = hour;
+        minute_dom.innerText = minute;
+    }, 1000);
+
+
+
+    window.addEventListener("dblclick", () => {
+        // used to drag window on screen
+
+        document.getElementById("div").classList.add("to_drag");
+        setTimeout(() => {
+            document.getElementById("div").classList.remove("to_drag");
+        }, 5000);
+    });
+    
+</script>
+</html>

@@ -1,8 +1,8 @@
 # Binary output
-./out/ 
+out/
 
 # node modules
-./node_modules/
+node_modules/
 
 # Other fonts
 .date-time.ttf
