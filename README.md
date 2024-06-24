@@ -56,7 +56,7 @@ _Only tested on Windows 11 with the following specs:_
 
 ---
 
-_Written and ~maintained~ by ScorpioBlood._
+_Written and ~maintained~ by Thorben Höhne._
 
 
 
